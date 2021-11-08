@@ -1,24 +1,19 @@
-package com.devsuperior.dsvendas.entities;
+package com.devsuperior.dsvendas.dto;
 
-import javax.persistence.*;
+import com.devsuperior.dsvendas.entities.Sale;
+
 import java.time.LocalDate;
 
-@Entity
-@Table(name= "tb_sales")
-public class Sale {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class SaleDTO {
     private Long id;
     private Integer visited;
     private Integer deals;
     private Double amount;
     private LocalDate date;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private Seller seller;
+    private SellerDTO seller;
 
-    public Sale(Long id, Integer visited, Integer deals, Double amount, LocalDate date, Seller seller) {
+    public SaleDTO(Long id, Integer visited, Integer deals, Double amount, LocalDate date, SellerDTO seller) {
         this.id = id;
         this.visited = visited;
         this.deals = deals;
@@ -27,8 +22,8 @@ public class Sale {
         this.seller = seller;
     }
 
-    public Sale() {
-
+    public SaleDTO(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
@@ -71,11 +66,19 @@ public class Sale {
         this.date = date;
     }
 
-    public Seller getSeller() {
+    public SellerDTO getSeller() {
         return seller;
     }
 
-    public void setSeller(Seller seller) {
+    public void setSeller(SellerDTO seller) {
         this.seller = seller;
+    }
+    public SaleDTO(Sale entity) {
+        id = entity.getId();
+        visited = entity.getVisited() ;
+        deals = entity.getDeals();
+        amount = entity.getAmount();
+        date = entity.getDate();
+        seller = new SellerDTO(entity.getSeller());
     }
 }
