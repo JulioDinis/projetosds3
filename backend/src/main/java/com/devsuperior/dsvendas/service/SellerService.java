@@ -20,8 +20,6 @@ public class SellerService {
         return result.stream().map(x -> new SellerDTO(x)).collect(Collectors.toList());
     }
 
-    public void salvar(Seller seller){
-        repository.save(seller);
-    }
+
 
 }
